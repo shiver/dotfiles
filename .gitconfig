@@ -1,0 +1,9 @@
+[user]
+	email = rvally@gmail.com
+	name = Robert Vally
+[push]
+	default = simple
+[http]
+	postBuffer = 524288000
+[core]
+	compression = 0
