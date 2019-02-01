@@ -12,6 +12,7 @@ parse_git_branch() {
 export TERM=screen-256color
 export EDITOR=vim
 
+alias vi='vim'
 alias ls='ls --color=auto'
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 export PS1="\u@\h \[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "
