@@ -9,6 +9,9 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf'
+
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdtree'
@@ -31,9 +34,7 @@ Plug 'mileszs/ack.vim'
 Plug 'honza/vim-snippets'
 Plug 'leafgarland/typescript-vim'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf'
+Plug 'tpope/vim-commentary'
 
 " Disabled plugins
 " Plug 'myusuf3/numbers.vim'
