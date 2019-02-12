@@ -9,13 +9,9 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf'
-
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdtree'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'majutsushi/tagbar'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -35,11 +31,14 @@ Plug 'honza/vim-snippets'
 Plug 'leafgarland/typescript-vim'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'tpope/vim-commentary'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 " Disabled plugins
 " Plug 'myusuf3/numbers.vim'
 " Plug 'SirVer/ultisnips'
 " Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --rust-completer --ts-completer' }
+" Plug 'ctrlpvim/ctrlp.vim'
 
 call plug#end()
 
@@ -159,12 +158,12 @@ autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.gra
 
 " Custom key bindings
 let mapleader = ","
-nnoremap <leader>sap :Ack<space>
+nnoremap <leader>sap :Rg<space>
 nnoremap <leader>c :SyntasticCheck<cr>
 nnoremap <leader>ce :Errors<cr>
 nnoremap <leader>gd :YcmCompleter GoTo<cr>
-nnoremap <leader>pf :CtrlP<cr>
-nnoremap <leader>pb :CtrlPBuffer<cr>
+nnoremap <leader>pf :GFiles<cr>
+nnoremap <leader>pb :Buffers<cr>
 nnoremap <leader>pF :NERDTreeToggle<cr>
 nnoremap <leader>pT :TagbarToggle<cr>
 nnoremap <leader>pgb :Gblame<cr>
