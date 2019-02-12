@@ -30,8 +30,7 @@ Plug 'joshdick/onedark.vim'
 Plug 'mileszs/ack.vim'
 Plug 'honza/vim-snippets'
 Plug 'leafgarland/typescript-vim'
-Plug 'prettier/vim-prettier'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --rust-completer --ts-completer' }
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf'
@@ -39,6 +38,7 @@ Plug 'junegunn/fzf'
 " Disabled plugins
 " Plug 'myusuf3/numbers.vim'
 " Plug 'SirVer/ultisnips'
+" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --rust-completer --ts-completer' }
 
 call plug#end()
 
@@ -76,7 +76,7 @@ set wildmode=longest:list,full
 set clipboard=unnamed
 " gvim specific settings
 set guioptions=
-set guifont=Tamsyn\ 9
+set guifont="Tamsyn 9"
 
 " No Wrapping for HTML files
 au FileType html set nowrap
@@ -167,6 +167,7 @@ nnoremap <leader>pb :CtrlPBuffer<cr>
 nnoremap <leader>pF :NERDTreeToggle<cr>
 nnoremap <leader>pT :TagbarToggle<cr>
 nnoremap <leader>pgb :Gblame<cr>
+nnoremap <leader>rrr :so ~/.vimrc<cr>
 
 " Save and load sessions
 map <leader>ls :mksession! .vim_session<cr>
