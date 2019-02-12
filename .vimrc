@@ -1,57 +1,63 @@
 set nocompatible              " be iMproved, required
-filetype off                  " required
 
 " Make sure we have Vundle installed
-let iCanHazVundle=1
-let vundle_readme=expand('~/.vim/bundle/Vundle.vim/README.md')
-if !filereadable(vundle_readme)
-	echo "Installing Vundle.."
-	echo ""
-	silent !mkdir -p ~/.vim/bundle
-	silent !git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
-	let iCanHazVundle=0
+"let iCanHazVundle=1
+"let vundle_readme=expand('~/.vim/bundle/Vundle.vim/README.md')
+"if !filereadable(vundle_readme)
+"	echo "Installing Vundle.."
+"	echo ""
+"	silent !mkdir -p ~/.vim/bundle
+"	silent !git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
+"	let iCanHazVundle=0
+"endif
+
+" Ensure vim-plug is installed
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
+call plug#begin('~/.vim/plugged')
 
-call vundle#begin()
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdtree'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'majutsushi/tagbar'
+Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'tomasr/molokai'
+Plug 'scrooloose/syntastic'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'rust-lang/rust.vim'
+Plug 'Yggdroot/indentLine'
+Plug 'Raimondi/delimitMate'
+Plug 'fatih/vim-go'
+Plug 'airblade/vim-gitgutter'
+Plug 'junegunn/vim-easy-align'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'joshdick/onedark.vim'
+Plug 'mileszs/ack.vim'
+Plug 'honza/vim-snippets'
+Plug 'leafgarland/typescript-vim'
+Plug 'prettier/vim-prettier'
 
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf'
 
-" My plugins
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'scrooloose/nerdtree'
-Plugin 'kien/ctrlp.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'bling/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'tomasr/molokai'
-Plugin 'scrooloose/syntastic'
-Plugin 'ntpeters/vim-better-whitespace'
-Plugin 'rust-lang/rust.vim'
-Plugin 'Yggdroot/indentLine.git'
-Plugin 'Raimondi/delimitMate.git'
-Plugin 'fatih/vim-go'
-Plugin 'airblade/vim-gitgutter'
-" Relative numbering, not really helpful.
-" Plugin 'myusuf3/numbers.vim'
-"Plugin 'Valloric/YouCompleteMe'
-Plugin 'junegunn/vim-easy-align'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'joshdick/onedark.vim'
-Plugin 'mileszs/ack.vim'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'leafgarland/typescript-vim'
+" Disabled plugins
+" Plug 'myusuf3/numbers.vim'
+" Plug 'Valloric/YouCompleteMe'
+" Plug 'SirVer/ultisnips'
 
-call vundle#end()
+call plug#end()
 
 filetype plugin indent on    " required
 syntax on
 
+set noeb vb t_vb=
+set ff=unix
 set encoding=utf-8
 set showcmd
 set modeline
@@ -118,6 +124,7 @@ let g:ctrlp_custom_ignore = {
 	\ }
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_max_files = 0
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 " NERDTree settings
 let NERDTreeIngore=['\.pyc$', '\.swp$', '__pycache__']
@@ -144,6 +151,21 @@ endif
 if executable('rg')
     let g:ackprg = 'rg --vimgrep --no-heading'
 endif
+
+" vim-prettier settings
+let g:prettier#config#parser = 'babylon'
+let g:prettier#config#print_width = 80
+let g:prettier#config#tab_width = 2
+let g:prettier#config#single_quote = 'false'
+let g:prettier#config#prose_wrap = 'preserve'
+let g:prettier#config#bracket_spacing = 'true'
+let g:prettier#config#trailing_comma = 'none'
+let g:prettier#config#jsx_bracket_same_line = 'false'
+let g:prettier#config#arrow_parens = 'avoid'
+
+" vim-prettier autoformat
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue,*.yaml,*.html Prettier
 
 " Custom key bindings
 let mapleader = ","
