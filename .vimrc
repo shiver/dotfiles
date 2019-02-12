@@ -31,13 +31,13 @@ Plug 'mileszs/ack.vim'
 Plug 'honza/vim-snippets'
 Plug 'leafgarland/typescript-vim'
 Plug 'prettier/vim-prettier'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --rust-completer --ts-completer' }
 
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf'
 
 " Disabled plugins
 " Plug 'myusuf3/numbers.vim'
-" Plug 'Valloric/YouCompleteMe'
 " Plug 'SirVer/ultisnips'
 
 call plug#end()
@@ -164,10 +164,10 @@ nnoremap <leader>ce :Errors<cr>
 nnoremap <leader>gd :YcmCompleter GoTo<cr>
 nnoremap <leader>pf :CtrlP<cr>
 nnoremap <leader>pb :CtrlPBuffer<cr>
+nnoremap <leader>pF :NERDTreeToggle<cr>
+nnoremap <leader>pT :TagbarToggle<cr>
+nnoremap <leader>pgb :Gblame<cr>
 
 " Save and load sessions
 map <leader>ls :mksession! .vim_session<cr>
 map <leader>lr :source .vim_session<cr>
-
-map <F7> :NERDTreeToggle<CR>
-nmap <F8> :TagbarToggle<CR>
