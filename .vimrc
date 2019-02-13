@@ -31,7 +31,7 @@ Plug 'honza/vim-snippets'
 Plug 'leafgarland/typescript-vim'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'tpope/vim-commentary'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'dir': '~/.vim/plugged/fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Disabled plugins
@@ -87,9 +87,6 @@ au FileType php set nowrap
 au FileType php set textwidth=0
 au FileType php set wrapmargin=0
 
-" Strip trailing whitespace for all filetypes
-autocmd BufWritePre * StripWhitespace
-" let g:better_whitespace_filetypes_blacklist=['diff', 'gitcommit', 'unite', 'qf', 'help']
 
 " Typescript plugin seems to be buggy
 autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
@@ -122,7 +119,9 @@ let NERDTreeIngore=['\.pyc$', '\.swp$', '__pycache__']
 let g:airline_theme="badwolf"
 
 " vim-better-whitespace
-let g:strip_whitespace_on_save = 1
+let g:better_whitespace_enabled=1
+let g:strip_whitespace_on_save=1
+let g:better_whitespace_filetypes_blacklist=['diff', 'gitcommit', 'unite', 'qf', 'help']
 
 " indent guide
 let g:indentLine_color_term = 239
@@ -154,11 +153,13 @@ let g:prettier#config#arrow_parens = 'avoid'
 
 " vim-prettier autoformat
 let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue,*.yaml,*.html Prettier
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue,*.yaml,*.html PrettierAsync
 
 " Custom key bindings
 let mapleader = ","
-nnoremap <leader>sap :Rg<space>
+nnoremap <leader>saf :Rg<space>
+nnoremap <leader>sb :BLines<cr>
+nnoremap <leader>sab :Lines<cr>
 nnoremap <leader>c :SyntasticCheck<cr>
 nnoremap <leader>ce :Errors<cr>
 nnoremap <leader>gd :YcmCompleter GoTo<cr>
