@@ -158,7 +158,7 @@ autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.gra
 
 " Custom key bindings
 let mapleader = ","
-nnoremap <leader>saf :Rg<space>
+nnoremap <leader>saf :Rg<cr>
 nnoremap <leader>sb :BLines<cr>
 nnoremap <leader>sab :Lines<cr>
 nnoremap <leader>c :SyntasticCheck<cr>
