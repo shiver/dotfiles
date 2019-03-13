@@ -175,3 +175,7 @@ nnoremap <leader>rrr :so ~/.vimrc<cr>
 " Save and load sessions
 map <leader>ls :mksession! .vim_session<cr>
 map <leader>lr :source .vim_session<cr>
+
+vmap <C-Insert> "*y<CR>
+nmap <S-Insert> "*P<CR>
+vmap <S-Insert> "*P<CR>
