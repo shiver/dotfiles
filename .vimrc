@@ -1,57 +1,52 @@
 set nocompatible              " be iMproved, required
-filetype off                  " required
 
-" Make sure we have Vundle installed
-let iCanHazVundle=1
-let vundle_readme=expand('~/.vim/bundle/Vundle.vim/README.md')
-if !filereadable(vundle_readme)
-	echo "Installing Vundle.."
-	echo ""
-	silent !mkdir -p ~/.vim/bundle
-	silent !git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
-	let iCanHazVundle=0
+" Ensure vim-plug is installed
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
+call plug#begin('~/.vim/plugged')
 
-call vundle#begin()
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdtree'
+Plug 'majutsushi/tagbar'
+Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'tomasr/molokai'
+Plug 'scrooloose/syntastic'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'rust-lang/rust.vim'
+Plug 'Yggdroot/indentLine'
+Plug 'Raimondi/delimitMate'
+Plug 'fatih/vim-go'
+Plug 'airblade/vim-gitgutter'
+Plug 'junegunn/vim-easy-align'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'joshdick/onedark.vim'
+Plug 'mileszs/ack.vim'
+Plug 'honza/vim-snippets'
+Plug 'leafgarland/typescript-vim'
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+Plug 'tpope/vim-commentary'
+Plug 'junegunn/fzf', { 'dir': '~/.vim/plugged/fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+" Disabled plugins
+" Plug 'myusuf3/numbers.vim'
+" Plug 'SirVer/ultisnips'
+" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --rust-completer --ts-completer' }
+" Plug 'ctrlpvim/ctrlp.vim'
 
-" My plugins
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'scrooloose/nerdtree'
-Plugin 'kien/ctrlp.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'bling/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'tomasr/molokai'
-Plugin 'scrooloose/syntastic'
-Plugin 'ntpeters/vim-better-whitespace'
-Plugin 'rust-lang/rust.vim'
-Plugin 'Yggdroot/indentLine.git'
-Plugin 'Raimondi/delimitMate.git'
-Plugin 'fatih/vim-go'
-Plugin 'airblade/vim-gitgutter'
-" Relative numbering, not really helpful.
-" Plugin 'myusuf3/numbers.vim'
-"Plugin 'Valloric/YouCompleteMe'
-Plugin 'junegunn/vim-easy-align'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'joshdick/onedark.vim'
-Plugin 'mileszs/ack.vim'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'leafgarland/typescript-vim'
-
-call vundle#end()
+call plug#end()
 
 filetype plugin indent on    " required
 syntax on
 
+set noeb vb t_vb=
+set ff=unix
 set encoding=utf-8
 set showcmd
 set modeline
@@ -79,9 +74,10 @@ colorscheme onedark
 set wildmenu
 set wildmode=longest:list,full
 set clipboard=unnamed
+set termguicolors
 " gvim specific settings
 set guioptions=
-set guifont=Tamsyn\ 9
+set guifont="Tamsyn 9"
 
 " No Wrapping for HTML files
 au FileType html set nowrap
@@ -92,9 +88,6 @@ au FileType php set nowrap
 au FileType php set textwidth=0
 au FileType php set wrapmargin=0
 
-" Strip trailing whitespace for all filetypes
-autocmd BufWritePre * StripWhitespace
-" let g:better_whitespace_filetypes_blacklist=['diff', 'gitcommit', 'unite', 'qf', 'help']
 
 " Typescript plugin seems to be buggy
 autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
@@ -118,6 +111,7 @@ let g:ctrlp_custom_ignore = {
 	\ }
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_max_files = 0
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 " NERDTree settings
 let NERDTreeIngore=['\.pyc$', '\.swp$', '__pycache__']
@@ -126,7 +120,10 @@ let NERDTreeIngore=['\.pyc$', '\.swp$', '__pycache__']
 let g:airline_theme="badwolf"
 
 " vim-better-whitespace
-let g:strip_whitespace_on_save = 1
+let g:better_whitespace_enabled=1
+let g:strip_whitespace_on_save=1
+let g:strip_whitespace_confirm=0
+let g:better_whitespace_filetypes_blacklist=['diff', 'gitcommit', 'unite', 'qf', 'help']
 
 " indent guide
 let g:indentLine_color_term = 239
@@ -145,18 +142,40 @@ if executable('rg')
     let g:ackprg = 'rg --vimgrep --no-heading'
 endif
 
+" vim-prettier settings
+let g:prettier#config#parser = 'babylon'
+let g:prettier#config#print_width = 80
+let g:prettier#config#tab_width = 2
+let g:prettier#config#single_quote = 'false'
+let g:prettier#config#prose_wrap = 'preserve'
+let g:prettier#config#bracket_spacing = 'true'
+let g:prettier#config#trailing_comma = 'none'
+let g:prettier#config#jsx_bracket_same_line = 'false'
+let g:prettier#config#arrow_parens = 'avoid'
+
+" vim-prettier autoformat
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue,*.yaml,*.html PrettierAsync
+
 " Custom key bindings
 let mapleader = ","
-nnoremap <leader>sap :Ack<space>
+nnoremap <leader>saf :Rg<cr>
+nnoremap <leader>sb :BLines<cr>
+nnoremap <leader>sab :Lines<cr>
 nnoremap <leader>c :SyntasticCheck<cr>
 nnoremap <leader>ce :Errors<cr>
 nnoremap <leader>gd :YcmCompleter GoTo<cr>
-nnoremap <leader>pf :CtrlP<cr>
-nnoremap <leader>pb :CtrlPBuffer<cr>
+nnoremap <leader>pf :GFiles<cr>
+nnoremap <leader>pb :Buffers<cr>
+nnoremap <leader>pF :NERDTreeToggle<cr>
+nnoremap <leader>pT :TagbarToggle<cr>
+nnoremap <leader>pgb :Gblame<cr>
+nnoremap <leader>rrr :so ~/.vimrc<cr>
 
 " Save and load sessions
 map <leader>ls :mksession! .vim_session<cr>
 map <leader>lr :source .vim_session<cr>
 
-map <F7> :NERDTreeToggle<CR>
-nmap <F8> :TagbarToggle<CR>
+vmap <C-Insert> "*y<CR>
+nmap <S-Insert> "*P<CR>
+vmap <S-Insert> "*P<CR>
