@@ -74,7 +74,7 @@ colorscheme onedark
 set wildmenu
 set wildmode=longest:list,full
 set clipboard=unnamed
-set termguicolors
+"set termguicolors
 " gvim specific settings
 set guioptions=
 set guifont="Tamsyn 9"
