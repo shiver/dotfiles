@@ -22,4 +22,5 @@ export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 export GOPATH=$HOME/go
 export PATH=$PATH:$HOME/.cargo/bin:$GOPATH/bin
 
-
+# There is probably a better place for this...
+setxkbmap -option ctrl:nocaps
